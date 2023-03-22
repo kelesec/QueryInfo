@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title | default('修改资料') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/modify-style.css') }}">
+    <style type="text/css">
+        .basicInfo-left {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body class="align">
+<div style="margin-bottom: -10%">
+    <img src="{{ url_for('static', filename='admin/img/head.jpg') }}" alt="{{ user.username }}" class="basicInfo-left">
+</div>
+<div class="grid">
+    <form action="{{ url_for('admin.modify') }}" method="POST" class="form login">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <div class="flash">{{ message }}</div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="form__field">
+            <label for="login__email">
+                <svg class="icon">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+                <span class="hidden">修改邮箱</span></label>
+            <input id="login__email" type="text" name="email" class="form__input" placeholder="修改邮箱"
+                   required>
+        </div>
+
+        <div class="form__field">
+            <label for="login__password1">
+                <svg class="icon">
+                    <use xlink:href="#icon-lock"></use>
+                </svg>
+                <span class="hidden">旧密码</span></label>
+            <input id="login__password1" type="password" name="password1" class="form__input" placeholder="旧密码"
+                   required>
+        </div>
+        <div class="form__field">
+            <label for="login__password2">
+                <svg class="icon">
+                    <use xlink:href="#icon-lock"></use>
+                </svg>
+                <span class="hidden">新密码</span></label>
+            <input id="login__password2" type="password" name="password2" class="form__input" placeholder="新密码"
+                   required>
+        </div>
+
+        <div class="form__field">
+            <input type="submit" id="submit" name="submit" value="点击修改">
+        </div>
+    </form>
+</div>
+
+<svg xmlns="http://www.w3.org/2000/svg" class="icons">
+    <symbol id="icon-lock" viewBox="0 0 1792 1792">
+        <path
+                d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 0-68-28t-28-68V864q0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z"/>
+    </symbol>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icons">
+    <symbol id="icon-email" viewBox="0 0 24 24">
+        <path
+                d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+    </symbol>
+</svg>
+</body>
+
+</html>

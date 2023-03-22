@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <!-- 引入 Bootstrap 样式 -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <style>
+        /* 将单选框和标签元素放在同一行 */
+        .radio-group input[type="radio"],
+        .radio-group label {
+            display: inline-block;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            width: 80%;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+{% block container %}
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <form action="#" method="post">
+            {% if error %}
+                <div class="form-group" style="color: red">
+                    <label for="error">{{ error }}</label>
+                </div>
+            {% elif succ %}
+                <div class="form-group" style="color: green">
+                    <label for="succ">{{ succ }}</label>
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" id="name" name="name" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>性别</label>
+                <div class="radio-group">
+                    <input type="radio" id="male" name="sex" value="1" checked="checked">
+                    <label for="male" style="margin-right: 5%">男</label>
+                    <input type="radio" id="female" name="sex" value="0">
+                    <label for="female">女</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="birthdate">出生日期</label>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <select name="birth-year" id="birth-year" class="form-control">
+                            <option value="">Year</option>
+                            <!-- 从 1900 年到当前年份生成选项 -->
+
+                            {% if not current_year %}
+                                {% set current_year = 2023 %}
+                            {% endif %}
+
+                            {% for year in range(1900, current_year + 1) %}
+                                {% if year == current_year %}
+                                    <option selected="selected" value="{{ year }}">{{ year }}</option>
+                                {% else %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select name="birth-month" id="birth-month" class="form-control">
+                            <option value="">Month</option>
+                            <!-- 生成 1 到 12 月的选项 -->
+                            {% for month in range(1, 13) %}
+                                {% if month == 1 %}
+                                    <option selected="selected" value="{{ month }}">{{ month }}</option>
+                                {% else %}
+                                    <option value="{{ month }}">{{ month }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select name="birth-day" id="birth-day" class="form-control">
+                            <option value="">Day</option>
+                            <!-- 生成 1 到 31 日的选项 -->
+                            {% for day in range(1, 32) %}
+                                {% if day == 1 %}
+                                    <option selected="selected" value="{{ day }}">{{ day }}</option>
+                                {% else %}
+                                    <option value="{{ day }}">{{ day }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="telephone">联系电话</label>
+                <input type="text" id="telephone" name="telephone" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="email">邮箱</label>
+                <input type="email" id="email" name="email" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="id_card">身份证</label>
+                <input type="text" id="id_card" name="id_card" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="address">家庭住址</label>
+                <input type="text" id="address" name="address" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="occupation">职业</label>
+                <input type="text" id="occupation" name="occupation" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="workplace">工作单位</label>
+                <input type="text" id="workplace" name="workplace" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="education">学历</label>
+                <input type="text" id="education" name="education" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="common_password">常用密码</label>
+                <input type="text" id="common_password" name="common_password" class="form-control">
+            </div>
+
+            {% block edu_info %}
+            {% endblock %}
+
+            <div class="form-group">
+                <label for="other">其它信息</label>
+                <input type="text" id="other" name="other" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+</body>
+</html>

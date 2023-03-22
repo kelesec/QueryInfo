@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>{{ title | default("详细信息") }}</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel='stylesheet' type='text/css'/>
+    <link href="{{ url_for('static', filename='view/css/info-style.css') }}" rel='stylesheet' type='text/css'/>
+</head>
+
+<body>
+<div id="home">
+    <div class="container">
+        <!-- top-hedader -->
+        <div class="top-header">
+            <div class="banner-info">
+                <div class="col-md-7 header-right">
+                    <h1>详细信息</h1>
+                    <ul class="uinfo">
+                        {% if data %}
+                            {% for key, value in data.items() %}
+                                <li>
+                                    <ul class="uinfo-text">
+                                        <li><b>{{ key }}</b></li>
+                                        {% if value %}
+                                            <li>{{ value }}</li>
+                                        {% else %}
+                                            <li style="color: red;">未知</li>
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li><span style="color: white">未发现数据</span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

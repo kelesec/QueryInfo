@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{{ title | default("QueryInfo社工查询系统")}}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    {# 引入 CSS 样式 #}
+    {% block head_links %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='backstage/css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='backstage/css/style.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+    <div id="loading">
+        <div></div>
+        <div></div>
+        <span></span>
+    </div>
+    <!-- WRAPPER -->
+    <div id="wrapper">
+        <!-- NAVBAR -->
+        {% block navbar %}
+        {# LOGO样式 #}
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="brand">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='backstage/img/logo.png') }}" alt="{{ title }} LOGO"
+                        class="img-responsive logo">
+                </a>
+            </div>
+            <div class="container-fluid">
+                <div class="navbar-btn" style="padding: 0; padding-top: 10px;">
+                    <button type="button" class="btn-toggle-fullwidth btn-toggle-mx">
+                        <img src="{{ url_for('static', filename='backstage/img/left.png') }}" height="40px" alt="">
+                    </button>
+                </div>
+            </div>
+        </nav>
+        {% endblock %}
+
+        {% block left_sidebar %}{# 侧边栏 #}
+        <div id="sidebar-nav" class="sidebar">
+            <div class="sidebar-scroll">
+                <nav>
+                    <ul class="nav">
+                        <li>
+{#                            <a href="{{ url_for('queryinfo.search') }}" target="_blank" class="iframe_link active">#}
+{#                                <span>信息查询</span>#}
+{#                            </a>#}
+                            <a href="javascript:" class="nav-togg">
+                                <span>信息查询</span>
+                            </a>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="{{ url_for('queryinfo.search') }}" target="_blank" class="iframe_link">
+                                            <span>默认查询</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('queryinfo.edu_search') }}" target="_blank" class="iframe_link">
+                                            <span>学校信息</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('queryinfo.search_pwd') }}" target="_blank" class="iframe_link">
+                                            <span>密码查询</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('queryinfo.app_weak_pwd') }}" target="_blank" class="iframe_link">
+                                            <span>设备弱口令</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:" class="nav-togg">
+                                <span>添加数据</span>
+                            </a>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="{{ url_for('add_data.index') }}" target="_blank" class="iframe_link">
+                                            <span>添加默认数据</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('add_data.add_edu') }}" target="_blank" class="iframe_link">
+                                            <span>添加学校信息</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('add_data.add_pass') }}" target="_blank" class="iframe_link">
+                                            <span>添加密码信息</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('add_data.add_weak_pwd') }}" target="_blank" class="iframe_link">
+                                            <span>添加设备弱口令</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:" class="nav-togg">
+                                <span>个人中心</span>
+                            </a>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="{{ url_for('admin.modify') }}" target="_blank" class="iframe_link">
+                                            <span>修改资料</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('admin.logoff') }}">
+                                            <span>退出登陆</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('queryinfo.about') }}" target="_blank" class="iframe_link">
+                                <span>About</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endblock %}
+
+        {% block main_content %}
+        <div class="main">
+            <div class="main-content" style="height: 100%;">
+                <iframe src="#" class="iframe_mx uicss-cn"></iframe>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</body>
+{% block js_script_link %}
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ url_for('static', filename='backstage/js/klorofil-common.js') }}"></script>
+{% endblock %}
+
+</html>

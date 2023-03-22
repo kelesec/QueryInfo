@@ -1,0 +1,4 @@
+venv/
+migrations/
+__pycache__
+app/config/settings.py

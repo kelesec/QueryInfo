@@ -1,0 +1,9 @@
+﻿{% extends 'base/index_base.html' %}
+
+{% block main_content %}
+    <div class="main">
+      <div class="main-content" style="height: 100%;">
+        <iframe src="{{ url_for('queryinfo.about') }}" class="iframe_mx uicss-cn"></iframe>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>{{ title | default("信息查询") }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='view/css/search-form.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='view/css/normalize.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='view/css/component.css') }}"/>
+    <!--[if IE]>
+    <script src="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+    {% block css_style_block %}
+        <style>
+            a {
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: red;
+            }
+        </style>
+    {% endblock %}
+</head>
+
+<body>
+{% block main %}
+    <section class="container">
+        <form action="{{ url_for('queryinfo.search') }}" method="post">
+            <div class="search-wrapper active">
+                <div class="input-holder">
+                    <input type="text" class="search-input" placeholder="姓名|电话|身份证|邮箱"/>
+                    <button class="search-icon"><span></span></button>
+                </div>
+
+                <div class="result-container" style="display: block;">
+                    <div class="container">
+                        <div class="component">
+                            <table>
+                                <thead>
+                                <tr>
+                                    {% if headers %}
+                                        <th style="text-align: center">序号</th>
+                                        {% for header in headers %}
+                                            <th style="text-align: center">{{ header }}</th>
+                                        {% endfor %}
+                                    {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if datas %}
+                                    {% for data in datas %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            {% for d in data.data %}
+                                                {% if loop.first %}
+                                                    <td>
+                                                        <a href="{{ url_for('queryinfo.search_one', id=data.id) }}">{{ d }}</a>
+                                                    </td>
+                                                {% else %}
+                                                    <td>{{ d }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.ba-throttle-debounce.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.stickyheader.js') }}"></script>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+</div>
+</body>
+</html>

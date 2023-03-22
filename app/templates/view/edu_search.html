@@ -1,0 +1,74 @@
+{% extends 'base/search_base.html' %}
+
+{% block css_style_block %}
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: red;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <section class="container">
+        <form action="{{ url_for('queryinfo.edu_search') }}" method="post">
+            <div class="search-wrapper active">
+                <div class="input-holder">
+                    <input name="search" type="text" class="search-input" placeholder="姓名|电话|邮箱|身份证|工作单位|学号|工号"/>
+                    <button class="search-icon"><span></span></button>
+                </div>
+
+                <div class="result-container" style="display: block;">
+                    <div class="container">
+                        <div class="component">
+                            {% if notice %}
+                                <h1 style="color: red">{{ notice }}</h1>
+                            {% else %}
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        {% if headers %}
+                                            <th>序号</th>
+                                            {% for header in headers %}
+                                                <th>{{ header }}</th>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if datas %}
+                                        {% for data in datas %}
+                                            <tr>
+                                                <td>{{ loop.index }}</td>
+                                                {% for value in data.data.values() %}
+                                                    {% if loop.first %}
+                                                        <td>
+                                                            <a href="{{ url_for('queryinfo.search_one_edu', uid=data.id) }}">{{ value }}</a>
+                                                        </td>
+                                                    {% elif value %}
+                                                        <td>{{ value }}</td>
+                                                    {% else %}
+                                                        <td>未知</td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}
+

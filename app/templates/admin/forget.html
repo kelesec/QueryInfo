@@ -1,0 +1,66 @@
+{% extends 'admin/login.html' %}
+
+{#表单登陆#}
+{% block main %}
+ <dt>
+  <strong>{{ title | default('忘记密码') }}</strong>
+  <em>{{ subheading | default('Management system') }}</em>
+ </dt>
+ <dd class="email_icon">
+  <input type="text" name="email" id="email" placeholder="邮箱" class="login_txtbx"/>
+ </dd>
+ <dd class="val_icon">
+  <div class="checkcode">
+    <input type="text" id="checkcode" name="checkcode" placeholder="验证码" maxlength="4" class="login_txtbx">
+    <canvas class="J_codeimg" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+  </div>
+ </dd>
+ <dd>
+  <input type="button" name="submit" id="submit" value="点击发送" class="submit_btn"/>
+ </dd>
+ <dd>
+  <p><a href="{{ url_for('admin.login') }}" style="color: #f4f4f4;">记得密码, 点我登陆！</a></p>
+ </dd>
+{% endblock %}
+
+{#CopyWrite信息#}
+{% block copywrite %}
+{% endblock %}
+
+{% block body_script %}
+<script>
+$(document).ready(function() {
+    createCode();
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: '#5cbdaa',
+        lineColor: '#5cbdaa'
+    });
+
+    {#发送表单请求#}
+    $('#submit').on('click', function () {
+        var email = $('#email').val();
+        var checkcode = $('#checkcode').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/forget",
+            dataType: 'json',
+            data: {
+                "email": email,
+                "checkcode": checkcode
+            },
+            success: function (e) {
+                if (e.code === 200) {
+                    alert(e.msg);
+                    window.location.href = '/admin/login';
+                } else {
+                    createCode()
+                    alert(e.msg);
+                }
+            }
+        })
+    })
+})
+</script>
+{% endblock %}

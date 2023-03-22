@@ -1,0 +1,77 @@
+{% extends "base/form_base.html" %}
+
+{% block container %}
+
+<div class="container">
+        <h1>{{ title }}</h1>
+        <form action="#" method="post">
+            {% if error %}
+                <div class="form-group" style="color: red">
+                    <label for="error">{{ error }}</label>
+                </div>
+            {% elif succ %}
+                <div class="form-group" style="color: green">
+                    <label for="succ">{{ succ }}</label>
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="uid">UID</label>
+                <input type="text" id="uid" name="uid" class="form-control" placeholder="账号ID">
+            </div>
+
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="text" id="password" name="password" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="encry_type">加密类型</label>
+                <input type="text" id="encry_type" name="encry_type" class="form-control" placeholder="明文|md5|sha1...">
+            </div>
+
+            <div class="form-group">
+                <label for="salt">Salt</label>
+                <input type="text" id="salt" name="salt" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="email">邮箱</label>
+                <input type="text" id="email" name="email" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="qq">QQ号</label>
+                <input type="text" id="qq" name="qq" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="wechat">微信</label>
+                <input type="text" id="wechat" name="wechat" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="weibo">微博</label>
+                <input type="text" id="weibo" name="weibo" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="telephone">电话号码</label>
+                <input type="text" id="telephone" name="telephone" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="category">分类</label>
+                <input type="text" id="category" name="category" class="form-control" placeholder="信息来源，比如xx通">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+{% endblock %}
